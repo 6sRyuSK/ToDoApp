@@ -7,14 +7,15 @@ export const toDoList = {
         createdAt: new Date('2020-06-01 17:42'),
         deadLine: new Date('2020-06-11 17:42'),
         priority: 'high',
-        getLastDay () {
-          const lastDay = this.deadLine.getTime() - (new Date().getTime() + 9 * 60 * 60 * 1000)
+        getLastDay (now) {
+          const lastDay = this.deadLine.getTime() - (now.getTime() + 9 * 60 * 60 * 1000)
           return new Date(lastDay)
         },
-        getFormattedTime () {
-          const time = this.getLastDay().toLocaleTimeString()
-          const date = this.getLastDay().getDate()
-          const month = this.getLastDay().getMonth()
+        getFormattedTime (now) {
+          const lastDay = this.getLastDay(now)
+          const time = lastDay.toLocaleTimeString()
+          const date = lastDay.getDate()
+          const month = lastDay.getMonth()
           return `${month} / ${date} / ${time}`
         }
       },
@@ -22,16 +23,17 @@ export const toDoList = {
         title: '2nd TODO',
         description: '2nd time',
         createdAt: new Date('2020-06-02 17:42'),
-        deadLine: new Date('2020-06-01 19:10:00'),
+        deadLine: new Date('2020-06-01 22:20:00'),
         priority: 'low',
-        getLastDay () {
-          const lastDay = this.deadLine.getTime() - (new Date().getTime() + 9 * 60 * 60 * 1000)
+        getLastDay (now) {
+          const lastDay = this.deadLine.getTime() - (now.getTime() + 9 * 60 * 60 * 1000)
           return new Date(lastDay)
         },
-        getFormattedTime () {
-          const time = this.getLastDay().toLocaleTimeString()
-          const date = this.getLastDay().getDate()
-          const month = this.getLastDay().getMonth()
+        getFormattedTime (now) {
+          const lastDay = this.getLastDay(now)
+          const time = lastDay.toLocaleTimeString()
+          const date = lastDay.getDate()
+          const month = lastDay.getMonth()
           return `${month} / ${date} / ${time}`
         }
       }
@@ -53,14 +55,15 @@ export const toDoList = {
         createdAt,
         deadLine: deadLine || new Date(new Date().setDate(createdAt.getDate() + 10)),
         priority,
-        getLastDay () {
-          const lastDay = this.deadLine.getTime() - (new Date().getTime() + 9 * 60 * 60 * 1000)
+        getLastDay (now) {
+          const lastDay = this.deadLine.getTime() - (now.getTime() + 9 * 60 * 60 * 1000)
           return new Date(lastDay)
         },
-        getFormattedTime () {
-          const time = this.getLastDay().toLocaleTimeString()
-          const date = this.getLastDay().getDate()
-          const month = this.getLastDay().getMonth()
+        getFormattedTime (now) {
+          const lastDay = this.getLastDay(now)
+          const time = lastDay.toLocaleTimeString()
+          const date = lastDay.getDate()
+          const month = lastDay.getMonth()
           return `${month} / ${date} / ${time}`
         }
       }

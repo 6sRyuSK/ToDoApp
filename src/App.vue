@@ -28,6 +28,16 @@ export default {
     toDoList () {
       return this.$store.state.toDoList.list
     }
+  },
+  data () {
+    return {
+      nowDate: new Date()
+    }
+  },
+  created () {
+    setInterval(() => {
+      this.nowDate = new Date()
+    }, 1000)
   }
 }
 </script>
