@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <create-to-do-form :pushToDo="receiveToDo" />
     <h1>HELLO</h1>
     <ul class="to-do-list">
       <li class="to-do-item" v-for="item in toDoList" :key="item.createdAt.getTime()">
@@ -16,50 +17,43 @@
 </template>
 
 <script>
+import createToDoForm from '@/components/createToDoForm'
+
 export default {
   name: 'App',
+  components: {
+    createToDoForm
+  },
   data () {
     return {
-      toDoList: [
-        {
-          title: 'first TODO',
-          description: 'first time',
-          createdAt: new Date('2020-06-01 17:42'),
-          deadLine: new Date('2020-06-11 17:42'),
-          priority: 'high',
-          getLastDay () {
-            const lastDay = this.deadLine.getTime() - (new Date().getTime() + 9 * 60 * 60 * 1000)
-            return new Date(lastDay)
-          },
-          getFormattedTime () {
-            const time = this.getLastDay().toLocaleTimeString()
-            const date = this.getLastDay().getDate()
-            const month = this.getLastDay().getMonth()
-            return `${month} / ${date} / ${time}`
-          }
-        },
-        {
-          title: '2nd TODO',
-          description: '2nd time',
-          createdAt: new Date('2020-06-02 17:42'),
-          deadLine: new Date('2020-06-01 19:10:00'),
-          priority: 'low',
-          getLastDay () {
-            const lastDay = this.deadLine.getTime() - (new Date().getTime() + 9 * 60 * 60 * 1000)
-            return new Date(lastDay)
-          },
-          getFormattedTime () {
-            const time = this.getLastDay().toLocaleTimeString()
-            const date = this.getLastDay().getDate()
-            const month = this.getLastDay().getMonth()
-            return `${month} / ${date} / ${time}`
-          }
-        }
-      ]
+      toDoList: []
     }
   },
-  created () {
-    console.log(this.toDoList[0].createdAt)
+  methods: {
+    receiveToDo (title, description, priority, deadLine) {
+      const createdAt = new Date(new Date().getTimezoneOffset({ timeZone: 'Asia/Tokyo' }))
+      console.log(createdAt)
+      if (!deadLine) deadLine = new Date(new Date().setDate(createdAt.getDate() + 10))
+      console.log(deadLine)
+      const toDo = {
+        title,
+        description,
+        createdAt,
+        deadLine,
+        priority,
+        getLastDay () {
+          const lastDay = this.deadLine.getTime() - (new Date().getTime() + 9 * 60 * 60 * 1000)
+          return new Date(lastDay)
+        },
+        getFormattedTime () {
+          const time = this.getLastDay().toLocaleTimeString()
+          const date = this.getLastDay().getDate()
+          const month = this.getLastDay().getMonth()
+          return `${month} / ${date} / ${time}`
+        }
+      }
+      this.toDoList.push(toDo)
+    }
   }
 }
 </script>
