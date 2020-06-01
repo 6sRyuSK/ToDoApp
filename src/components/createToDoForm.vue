@@ -19,11 +19,13 @@ export default {
   },
   methods: {
     createToDo () {
-      this.pushToDo(this.title, this.description, this.priority)
+      const payload = {
+        title: this.title,
+        description: this.description,
+        priority: this.priority
+      }
+      this.$store.dispatch('setToDo', payload)
     }
-  },
-  props: {
-    pushToDo: Function
   }
 }
 </script>
